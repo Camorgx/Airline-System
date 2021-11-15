@@ -14,8 +14,6 @@ vector<Airline> airlines;
 
 int main(int argc, const char * argv[]) {
     init_system(airlines, "database.txt");
-    for (auto i : airlines)
-        cout << i.to << endl;
     string input = "To3";
     auto p = search_airline(airlines, input);
     if (p) cout << p->id_airline << endl;

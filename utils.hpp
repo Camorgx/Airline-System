@@ -11,6 +11,9 @@
 #include "Airline.hpp"
 
 void init_system(std::vector<Airline>& airlines, std::string data_file);
-Airline* search_airline(std::vector<Airline>& airlines, std::string to);
+void search_airline(std::vector<Airline>& ans, std::vector<Airline>& airlines, const std::string& to);
+void order(std::string airline, size_t order);
+void string_split(std::vector<std::string>& ans, const std::string& source,
+                  const std::string& split = " ");
 
 #endif /* utils_hpp */

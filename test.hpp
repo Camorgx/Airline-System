@@ -1,10 +1,3 @@
-//
-//  test.hpp
-//  航空客运订票系统
-//
-//  Created by 曹高翔 on 2021/11/15.
-//
-
 #ifndef test_h
 #define test_h
 

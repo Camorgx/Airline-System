@@ -1,10 +1,3 @@
-//
-//  Airline.hpp
-//  航空客运订票系统
-//
-//  Created by 曹高翔 on 2021/10/11.
-//
-
 #ifndef Airline_hpp
 #define Airline_hpp
 
@@ -12,7 +5,7 @@
 #include "Queue.hpp"
 #include "PriorityList.hpp"
 
-//一周中的每一天
+//Every day in a week
 enum class Weekday {
     Monday = 1,
     Tuesday = 2,
@@ -24,7 +17,7 @@ enum class Weekday {
 };
 const std::string to_string(Weekday weekday);
 
-//一年中的每个月
+//Every month in a year
 enum class Month {
     January = 1,
     February = 2,
@@ -41,22 +34,17 @@ enum class Month {
 };
 const std::string to_string(Month month);
 
-//日期
 class Date {
 public:
-    //年份
     unsigned year = 2021;
-    //月份
     Month month = Month::October;
-    //日
     unsigned day = 1;
 
     Date() {}
     Date(unsigned year, unsigned month, unsigned day) 
         : year(year), month((Month)month), day(day) {}
-    //格式化输出
     const std::string to_string();
-    //duration为一个月（31天）之内的天数
+    //duration cannot be more than 31 days
     Date operator+(unsigned duration) const;
 };
 const std::string to_string(Date& date);
@@ -64,23 +52,16 @@ Date get_closest_date(Weekday weekday);
 
 class Airline {
 public:
-    //始发站
+    //Where does the plane start from
     std::string from;
-    //终点站
+    //Where does the plain arrive in
     std::string to;
-    //航班号
     std::string id_airline;
-    //飞机号
     std::string id_plane;
-    //飞行时间
     Weekday time = Weekday::Monday;
-    //最近一天航班的日期
     Date closest;
-    //最近一天航班的余票数
     unsigned tickets_left = 0;
-    //已订票的客户名单
     PriorityList guests_ordered;
-    //候补客户名单
     Queue guest_waiting;
     
     Airline() {}

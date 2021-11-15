@@ -1,10 +1,3 @@
-//
-//  main.cpp
-//  航空客运订票系统
-//
-//  Created by 曹高翔 on 2021/10/11.
-//
-
 #include <iostream>
 #include "Airline.hpp"
 #include "utils.hpp"

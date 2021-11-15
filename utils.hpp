@@ -1,10 +1,3 @@
-//
-//  utils.hpp
-//  航空客运订票系统
-//
-//  Created by 曹高翔 on 2021/10/18.
-//
-
 #ifndef utils_hpp
 #define utils_hpp
 

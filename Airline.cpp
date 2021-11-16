@@ -1,6 +1,8 @@
 #include "Airline.hpp"
+#include <ctime>
+using namespace std;
 
-const std::string Weekday_name[] = {
+const string Weekday_name[] = {
     "Monday",
     "Tuesday",
     "Wednesday",
@@ -9,11 +11,11 @@ const std::string Weekday_name[] = {
     "Saturday",
     "Sunday"
 };
-const std::string to_string(Weekday weekday) {
+const string to_string(Weekday weekday) {
     return Weekday_name[int(weekday) - 1];
 }
 
-const std::string Month_name[] = {
+const string Month_name[] = {
     "January",
     "February",
     "March",
@@ -27,13 +29,13 @@ const std::string Month_name[] = {
     "November",
     "December"
 };
-std::string to_string(Month month) {
+string to_string(Month month) {
     return Month_name[int(month) - 1];
 }
 
-std::string Date::to_string() {
+string Date::to_string() {
     char tmp[50];
-    std::string st;
+    string st;
     if (day >= 20 || day <= 10)
         switch (day % 10) {
             case 1 : st = "st"; break;
@@ -42,12 +44,12 @@ std::string Date::to_string() {
             default: st = "th";
         }
     else st = "th";
-    std::sprintf(tmp, "%s %d%s, %d", ::to_string(month).c_str(), 
+    sprintf(tmp, "%s %d%s, %d", ::to_string(month).c_str(), 
         day, st.c_str(), year);
-    return std::string(tmp);
+    return string(tmp);
 }
 
-const std::string to_string(Date& date) {
+const string to_string(Date& date) {
     return date.to_string();
 }
 

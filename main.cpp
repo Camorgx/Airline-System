@@ -47,7 +47,7 @@ int main(int argc, const char * argv[]) {
             size_t order_size, order_level;
             unsigned i = 0;
             for (; i < airlines.size(); ++i)
-                if (airlines[i].id_airline == input_split[2])
+                if (airlines[i].id_airline == input_split[1])
                     break;
             if(i == airlines.size()) {
                 cout << "There's no such airline. Please check your input." << endl;

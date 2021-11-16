@@ -1,4 +1,4 @@
-#ifndef Queue_hpp
+﻿#ifndef Queue_hpp
 #define Queue_hpp
 
 #include "Guest.hpp"

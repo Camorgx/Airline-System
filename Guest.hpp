@@ -1,4 +1,4 @@
-#ifndef Guest_hpp
+﻿#ifndef Guest_hpp
 #define Guest_hpp
 
 #include <string>

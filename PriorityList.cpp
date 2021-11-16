@@ -1,4 +1,4 @@
-#include "PriorityList.hpp"
+﻿#include "PriorityList.hpp"
 
 PriorityList::PriorityList(const PriorityList& b) {
     head->next = tail; tail->prev = head;

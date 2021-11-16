@@ -39,7 +39,7 @@ bool order(vector<Airline>& airlines, const string& guest_name, unsigned airline
     if (order_size > airlines[airline].tickets_left[level - 1])
         return false;
     Guest guest(guest_name);
-    for (int i = 0; i < level_size[airline - 1]; ++i) {
+    for (int i = 0; i < level_size[airline]; ++i) {
         if (!airlines[airline].is_ordered[level - 1][i]) {
             guest.seat.push_back(i);
             airlines[airline].is_ordered[level - 1][i] = true;

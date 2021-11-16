@@ -55,7 +55,7 @@ int main(int argc, const char * argv[]) {
             }
             sscanf(input_split[3].c_str(), "%zd", &order_level);
             sscanf(input_split[4].c_str(), "%zd", &order_size);
-            if (!order(airlines, input_split[1], i, order_level, order_size)) {
+            if (!order(airlines, input_split[2], i, order_level, order_size)) {
                 cout << "Sorry, but there aren't enough seats. Do you want to wait in queue?"
                     << "(yes/no) [yes] ";
                 while (true) {

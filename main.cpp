@@ -16,6 +16,7 @@ int main(int argc, const char * argv[]) {
         vector<string> input_split;
         string_split(input_split, input);
         if (input_split[0] == "exit") break;
+        //search Destination
         else if (input_split[0] == "search") {
             if (input_split.size() != 2) {
                 cout << "Please check your input." << endl;
@@ -39,6 +40,7 @@ int main(int argc, const char * argv[]) {
                 delete[] ans;
             }
         }
+        //book Airline Guest Level Num
         else if (input_split[0] == "book") {
             if (input_split.size() != 5) {
                 cout << "Please check your input." << endl;
@@ -61,7 +63,7 @@ int main(int argc, const char * argv[]) {
                 while (true) {
                     string in; getline(cin, in);
                     if (in.length() == 0 || to_lower(in) == "yes") {
-                        airlines[i].guest_waiting.push(Guest(input_split[1]));
+                        airlines[i].guest_waiting.push(Guest(input_split[2]));
                         cout << "You have joined the waiting queue." << endl;
                         break;
                     }

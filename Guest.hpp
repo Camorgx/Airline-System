@@ -8,7 +8,7 @@ public:
     std::string name;
     unsigned seat[3][20];
     unsigned tickets_needed[3] = {0};
-    unsigned num_of_tickets[3] = { 0 };
+    unsigned num_of_tickets[3] = {0};
     
     Guest() {}
     Guest(std::string name) : name(name) {}

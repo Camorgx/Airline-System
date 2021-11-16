@@ -32,7 +32,7 @@ enum class Month {
     November = 11,
     December = 12
 };
-const std::string to_string(Month month);
+std::string to_string(Month month);
 
 class Date {
 public:
@@ -43,7 +43,7 @@ public:
     Date() {}
     Date(unsigned year, unsigned month, unsigned day) 
         : year(year), month((Month)month), day(day) {}
-    const std::string to_string();
+    std::string to_string();
     //duration cannot be more than 31 days
     Date operator+(unsigned duration) const;
 };
@@ -60,17 +60,17 @@ public:
     std::string id_plane;
     Weekday time = Weekday::Monday;
     Date closest;
-    unsigned tickets_left = 0;
+    unsigned tickets_left[3] = {200, 200, 200};
+    bool is_ordered[3][200] = {false};
     PriorityList guests_ordered;
     Queue guest_waiting;
     
     Airline() {}
     Airline(std::string fro, std::string t, std::string airline,
-            std::string plane, unsigned weekday, unsigned left) {
+            std::string plane, unsigned weekday) {
         from = fro; to = t; id_airline = airline;
         id_plane = plane; time = (Weekday)weekday;
         closest = get_closest_date(time);
-        tickets_left = left;
     }
     
     bool operator<(const Airline& b) const {

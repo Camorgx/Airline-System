@@ -64,7 +64,7 @@ void Queue::pop() {
     else ++head;
 }
 
-const bool Queue::isfull() {
+const bool Queue::is_full() {
     return head == tail || (head == 0 && tail == size - 1);
 }
 

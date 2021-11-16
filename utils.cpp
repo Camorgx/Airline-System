@@ -3,15 +3,15 @@
 #include <algorithm>
 using namespace std;
 
-void init_system(vector<Airline>& airlines, string data_file) {
+void init_system(vector<Airline>& airlines, const string& data_file) {
     ifstream fin; fin.open(data_file);
     int len; fin >> len;
     for (int i = 0; i < len; ++i) {
         string from, to, airline, plane;
-        unsigned weekday, left;
+        unsigned weekday;
         fin >> from >> to >> airline >> plane;
-        fin >> weekday >> left;
-        airlines.push_back(Airline(from, to, airline, plane, weekday, left));
+        fin >> weekday;
+        airlines.push_back(Airline(from, to, airline, plane, weekday));
     }
     sort(airlines.begin(), airlines.end());
     fin.close();
@@ -34,6 +34,22 @@ void string_split(vector<string>& ans, const string& source, const string& split
         ans.push_back(source.substr(pos1));
 }
 
-void order(string airline, size_t order) {
+bool order(vector<Airline>& airlines, const string& guest_name, unsigned airline, unsigned level,
+           size_t order_size) {
+    if (order_size > airlines[airline].tickets_left[level - 1])
+        return false;
+    Guest guest(guest_name);
+    for (int i = 0; i < 200; ++i) {
+        if (!airlines[airline].is_ordered[level - 1][i]) {
+            guest.seat.push_back(i);
+            airlines[airline].is_ordered[level - 1][i] = true;
+        }
+    }
+    airlines[airline].guests_ordered.insert(guest);
+    return true;
+}
 
+std::string to_lower(std::string in) {
+    for (char& i : in) i = tolower(i);
+    return in;
 }

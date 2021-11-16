@@ -25,7 +25,7 @@ public:
     Guest& back();
     void push(const Guest& x);
     void pop();
-    const bool isfull();
+    const bool is_full();
     const bool isempty();
     const size_t length();
 };

@@ -19,7 +19,7 @@ public:
     Guest(std::string name, unsigned num_of_tickets = 0,
         unsigned level = 1, std::vector<unsigned> seat = {},
         unsigned tickets_needed = 0) 
-    : name(name), 
+    : name(name),
         level(level), seat(seat), tickets_needed(tickets_needed)
     {}
     const bool operator<(const Guest& b) const {

@@ -27,11 +27,11 @@ const std::string Month_name[] = {
     "November",
     "December"
 };
-const std::string to_string(Month month) {
+std::string to_string(Month month) {
     return Month_name[int(month) - 1];
 }
 
-const std::string Date::to_string() {
+std::string Date::to_string() {
     char tmp[50];
     std::string st;
     if (day >= 20 || day <= 10)

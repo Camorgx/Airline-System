@@ -46,12 +46,14 @@ bool order(Airline* airlines, const string& guest_name, unsigned airline, unsign
            size_t order_size) {
     if (order_size > airlines[airline].tickets_left[level - 1])
         return false;
+    airlines[airline].tickets_left[level - 1] -= order_size;
+    unsigned cnt = 0;
     Guest guest(guest_name);
     for (int i = 0; i < level_size[airline]; ++i) {
         if (!airlines[airline].is_ordered[level - 1][i]) {
             guest.seat[level - 1][guest.num_of_tickets[level - 1]++] = i;
-            --airlines[airline].tickets_left[level - 1];
             airlines[airline].is_ordered[level - 1][i] = true;
+            if (cnt == order_size) break;
         }
     }
     airlines[airline].guests_ordered.insert(guest);

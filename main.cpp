@@ -5,10 +5,11 @@
 #include "utils.hpp"
 using namespace std;
 
-vector<Airline> airlines;
+Airline* airlines;
+unsigned num_of_airlines;
 
 int main(int argc, const char * argv[]) {
-    init_system(airlines, "database.txt");
+    init_system(airlines, num_of_airlines, "database.txt");
     while (true) {
         string input; getline(cin, input);
         if (input.length() == 0) continue;
@@ -20,23 +21,22 @@ int main(int argc, const char * argv[]) {
                 cout << "Please check your input." << endl;
                 continue;
             }
-            vector<Airline> ans;
-            search_airline(ans, airlines, input_split[1]);
-            if (ans.empty()) cout << "Sorry, we failed to find such airlines." <<endl;
+            unsigned ans_length = 0;
+            auto ans = search_airline(airlines, num_of_airlines, input_split[1], ans_length);
+            if (!ans) cout << "Sorry, we failed to find such airlines." <<endl;
             else {
-                cout << ans.size() << " results found." << endl;
-                for (auto& i : ans) {
-                    cout << i.id_airline << ", " << i.id_plane << ", " << to_string(i.time)
-                         << ", " << i.closest.to_string() << endl;
+                cout << ans_length << " results found." << endl;
+                for (int i = 0; i < ans_length; ++i) {
+                    cout << ans[i].id_airline << ", " << ans[i].id_plane << ", " << to_string(ans[i].time)
+                         << ", " << ans[i].closest.to_string() << endl;
                     for (int j = 0; j < 3; ++j) {
                         cout << "Level " << j + 1 << " has ";
-                        if (i.tickets_left[j] == 1)
-                            cout << i.tickets_left[j] << " ticket left." <<endl;
-                        else cout << i.tickets_left[j] << " tickets left." <<endl;
+                        if (ans[i].tickets_left[j] == 1)
+                            cout << ans[i].tickets_left[j] << " ticket left." <<endl;
+                        else cout << ans[i].tickets_left[j] << " tickets left." <<endl;
                     }
-
                 }
-
+                delete[] ans;
             }
         }
         else if (input_split[0] == "book") {
@@ -46,10 +46,10 @@ int main(int argc, const char * argv[]) {
             }
             size_t order_size, order_level;
             unsigned i = 0;
-            for (; i < airlines.size(); ++i)
+            for (; i < num_of_airlines; ++i)
                 if (airlines[i].id_airline == input_split[1])
                     break;
-            if(i == airlines.size()) {
+            if(i == num_of_airlines) {
                 cout << "There's no such airline. Please check your input." << endl;
                 continue;
             }

@@ -3,23 +3,31 @@
 #include <algorithm>
 using namespace std;
 
-void init_system(vector<Airline>& airlines, const string& data_file) {
+void init_system(Airline*& airlines, unsigned& num_of_airlines, const string& data_file) {
     ifstream fin; fin.open(data_file);
-    int len; fin >> len;
-    for (int i = 0; i < len; ++i) {
+    fin >> num_of_airlines;
+    airlines = new Airline[num_of_airlines];
+    for (int i = 0; i < num_of_airlines; ++i) {
         string from, to, airline, plane;
         unsigned weekday;
         fin >> from >> to >> airline >> plane;
         fin >> weekday;
-        airlines.push_back(Airline(from, to, airline, plane, weekday));
+        airlines[i] = Airline(from, to, airline, plane, weekday);
     }
-    sort(airlines.begin(), airlines.end());
+    sort(airlines, airlines + num_of_airlines);
     fin.close();
 }
 
-void search_airline(vector<Airline>& ans, vector<Airline>& airlines, const string& to) {
-    for (const auto& airline : airlines)
-        if (airline.to == to) ans.push_back(airline);
+Airline* search_airline(Airline* airlines, unsigned num_of_airlines, const string& to, unsigned& ans_length) {
+    auto ans = new Airline[num_of_airlines];
+    ans_length = 0;
+    for (int i = 0; i < num_of_airlines; ++i)
+        if (airlines[i].to == to) ans[ans_length++] = airlines[i];
+    if (ans_length == 0) {
+        delete[] ans;
+        return nullptr;
+    }
+    else return ans;
 }
 
 void string_split(vector<string>& ans, const string& source, const string& split) {
@@ -34,14 +42,15 @@ void string_split(vector<string>& ans, const string& source, const string& split
         ans.push_back(source.substr(pos1));
 }
 
-bool order(vector<Airline>& airlines, const string& guest_name, unsigned airline, unsigned level,
+bool order(Airline* airlines, const string& guest_name, unsigned airline, unsigned level,
            size_t order_size) {
     if (order_size > airlines[airline].tickets_left[level - 1])
         return false;
     Guest guest(guest_name);
     for (int i = 0; i < level_size[airline]; ++i) {
         if (!airlines[airline].is_ordered[level - 1][i]) {
-            guest.seat.push_back(i);
+            guest.seat[level - 1][guest.num_of_tickets[level - 1]++] = i;
+            --airlines[airline].tickets_left[level - 1];
             airlines[airline].is_ordered[level - 1][i] = true;
         }
     }

@@ -2,10 +2,11 @@
 #define utils_hpp
 
 #include "Airline.hpp"
+#include <vector>
 
-void init_system(std::vector<Airline>& airlines, const std::string& data_file);
-void search_airline(std::vector<Airline>& ans, std::vector<Airline>& airlines, const std::string& to);
-bool order(std::vector<Airline>& airlines, const std::string& guest_name,unsigned airline, unsigned level,
+void init_system(Airline*& airlines, unsigned& num_of_airlines, const std::string& data_file);
+Airline* search_airline(Airline* airlines, unsigned num_of_airlines, const std::string& to, unsigned& ans_length);
+bool order(Airline* airlines, const std::string& guest_name,unsigned airline, unsigned level,
            size_t order_size);
 void string_split(std::vector<std::string>& ans, const std::string& source, const std::string& split = " ");
 std::string to_lower(std::string in);

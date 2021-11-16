@@ -49,6 +49,7 @@ public:
 };
 const std::string to_string(Date& date);
 Date get_closest_date(Weekday weekday);
+const unsigned level_size[3] = {30, 50, 100};
 
 class Airline {
 public:
@@ -60,7 +61,7 @@ public:
     std::string id_plane;
     Weekday time = Weekday::Monday;
     Date closest;
-    unsigned tickets_left[3] = {200, 200, 200};
+    unsigned tickets_left[3] = {level_size[0], level_size[1], level_size[2]};
     bool is_ordered[3][200] = {false};
     PriorityList guests_ordered;
     Queue guest_waiting;

@@ -8,9 +8,10 @@ public:
 	struct Node {
 		Guest data;
 		Node* prev = nullptr, * next = nullptr;
-        Node() {}
-        Node(Guest g) { data = g; }
+        Node() = default;
+        explicit Node(Guest g) { data = g; }
 	};
+    size_t size = 0;
 	Node* head = new Node(), * tail = new Node();
 	
     PriorityList() {
@@ -18,9 +19,9 @@ public:
         tail->prev = head;
     }
     PriorityList(const PriorityList& b);
-    const bool isempty();
+    bool is_empty() const;
     //在优先链表中查找指定的元素，返回指向第一个匹配元素的指针或空指针
-	Node* find(const Guest& x);
+	Node* find(const Guest& x) const;
 	//向优先链表中插入指定的元素
 	void insert(Guest& x);
 	//从优先链表中删除指定的元素

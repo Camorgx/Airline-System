@@ -2,6 +2,7 @@
 
 PriorityList::PriorityList(const PriorityList& b) {
     head->next = tail; tail->prev = head;
+    size = b.size;
     Node* p = b.head->next;
     while (p != b.tail) {
         insert(p->data);
@@ -10,6 +11,7 @@ PriorityList::PriorityList(const PriorityList& b) {
 }
 
 void PriorityList::insert(Guest& x) {
+    ++size;
     Node* p = head;
     while (p->next != tail && p->next->data < x) p = p->next;
     if (p->next == tail) {
@@ -27,7 +29,8 @@ void PriorityList::insert(Guest& x) {
     }
 }
 
-PriorityList::Node* PriorityList::find(const Guest& x) {
+PriorityList::Node* PriorityList::find(const Guest& x) const {
+    if (is_empty()) return nullptr;
     Node* p = head->next;
     while (p->next != tail && p->data != x) p = p->next;
     if (p->data == x) return p;
@@ -38,6 +41,7 @@ void PriorityList::remove(Node* x) {
     if (!x) return;
     if (x == head || x == tail) return;
     else {
+        --size;
         x->prev->next = x->next;
         x->next->prev = x->prev;
         delete x;
@@ -45,15 +49,19 @@ void PriorityList::remove(Node* x) {
 }
 
 void PriorityList::remove(const Guest& x) {
+    --size;
     Node* p = find(x);
     remove(p);
 }
 
 void PriorityList::remove_all(const Guest &x) {
-    Node* p = nullptr;
-    while ((p = find(x))) remove(p);
+    Node* p;
+    while ((p = find(x))) {
+        --size;
+        remove(p);
+    }
 }
 
-const bool PriorityList::isempty() {
-    return head->next == tail->prev;
+bool PriorityList::is_empty() const {
+    return size == 0;
 }

@@ -11,7 +11,7 @@ const string Weekday_name[] = {
     "Saturday",
     "Sunday"
 };
-const string to_string(Weekday weekday) {
+string to_string(Weekday weekday) {
     return Weekday_name[int(weekday) - 1];
 }
 
@@ -33,7 +33,7 @@ string to_string(Month month) {
     return Month_name[int(month) - 1];
 }
 
-string Date::to_string() {
+string Date::to_string() const {
     char tmp[50];
     string st;
     if (day >= 20 || day <= 10)
@@ -46,38 +46,38 @@ string Date::to_string() {
     else st = "th";
     sprintf(tmp, "%s %d%s, %d", ::to_string(month).c_str(), 
         day, st.c_str(), year);
-    return string(tmp);
+    return {tmp};
 }
 
-const string to_string(Date& date) {
+string to_string(Date& date) {
     return date.to_string();
 }
 
 Date Date::operator+(unsigned duration) const {
-    int nyear = year, nmonth = int(month), nday = day + duration;
-    if (nmonth == 4 || nmonth == 6 || nmonth == 9 || nmonth == 11) {
-        if (nday > 30) { nday -= 30; nmonth += 1; }
+    int n_year = year, n_month = int(month), n_day = day + duration;
+    if (n_month == 4 || n_month == 6 || n_month == 9 || n_month == 11) {
+        if (n_day > 30) { n_day -= 30; n_month += 1; }
     }
-    else if (nmonth == 2) {
-        if ((nyear % 4 == 0 && nyear % 100 != 0) ||
-            nyear % 400 == 0) {
-            if (nday > 29) { nday -= 29; nmonth += 1; }
+    else if (n_month == 2) {
+        if ((n_year % 4 == 0 && n_year % 100 != 0) ||
+            n_year % 400 == 0) {
+            if (n_day > 29) { n_day -= 29; n_month += 1; }
         }
-        else if (nday > 28) { nday -= 28; nmonth += 1; }
+        else if (n_day > 28) { n_day -= 28; n_month += 1; }
     }
-    else if (nday > 31) { nday -= 31; nmonth += 1; }
-    if (nmonth == 4 || nmonth == 6 || nmonth == 9 || nmonth == 11) {
-        if (nday > 30) { nday -= 30; nmonth += 1; }
+    else if (n_day > 31) { n_day -= 31; n_month += 1; }
+    if (n_month == 4 || n_month == 6 || n_month == 9 || n_month == 11) {
+        if (n_day > 30) { n_day -= 30; n_month += 1; }
     }
-    else if (nmonth == 2) {
-        if ((nyear % 4 == 0 && nyear % 100 != 0) ||
-            nyear % 400 == 0) {
-            if (nday > 29) { nday -= 29; nmonth += 1; }
+    else if (n_month == 2) {
+        if ((n_year % 4 == 0 && n_year % 100 != 0) ||
+            n_year % 400 == 0) {
+            if (n_day > 29) { n_day -= 29; n_month += 1; }
         }
-        else if (nday > 28) { nday -= 28; nmonth += 1; }
+        else if (n_day > 28) { n_day -= 28; n_month += 1; }
     }
-    if (nmonth > 12) { nmonth -= 12; nyear += 1; }
-    return Date(nyear, nmonth, nday);
+    if (n_month > 12) { n_month -= 12; n_year += 1; }
+    return Date(n_year, n_month, n_day);
 }
 
 Date get_closest_date(Weekday weekday) {

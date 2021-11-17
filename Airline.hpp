@@ -1,6 +1,8 @@
 ﻿#ifndef Airline_hpp
 #define Airline_hpp
 
+#include <utility>
+
 #include "Guest.hpp"
 #include "Queue.hpp"
 #include "PriorityList.hpp"
@@ -15,7 +17,7 @@ enum class Weekday {
     Saturday = 6,
     Sunday = 7
 };
-const std::string to_string(Weekday weekday);
+std::string to_string(Weekday weekday);
 
 //Every month in a year
 enum class Month {
@@ -40,14 +42,14 @@ public:
     Month month = Month::October;
     unsigned day = 1;
 
-    Date() {}
+    Date() = default;
     Date(unsigned year, unsigned month, unsigned day) 
         : year(year), month((Month)month), day(day) {}
-    std::string to_string();
+    std::string to_string() const;
     //duration cannot be more than 31 days
     Date operator+(unsigned duration) const;
 };
-const std::string to_string(Date& date);
+std::string to_string(Date& date);
 Date get_closest_date(Weekday weekday);
 const unsigned level_size[3] = {30, 50, 100};
 
@@ -66,11 +68,11 @@ public:
     PriorityList guests_ordered;
     Queue guest_waiting;
     
-    Airline() {}
+    Airline() = default;
     Airline(std::string fro, std::string t, std::string airline,
             std::string plane, unsigned weekday) {
-        from = fro; to = t; id_airline = airline;
-        id_plane = plane; time = (Weekday)weekday;
+        from = std::move(fro); to = std::move(t); id_airline = std::move(airline);
+        id_plane = std::move(plane); time = (Weekday)weekday;
         closest = get_closest_date(time);
     }
     

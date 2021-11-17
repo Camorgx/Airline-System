@@ -49,7 +49,7 @@ void PriorityList::remove(const Guest& x) {
     remove(p);
 }
 
-void PriorityList::removeall(const Guest &x) {
+void PriorityList::remove_all(const Guest &x) {
     Node* p = nullptr;
     while ((p = find(x))) remove(p);
 }

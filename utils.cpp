@@ -43,7 +43,7 @@ void string_split(vector<string>& ans, const string& source, const string& split
         ans.push_back(source.substr(pos1));
 }
 
-bool _book(Airline* airlines, const string& guest_name, unsigned airline, unsigned level,
+bool book(Airline* airlines, const string& guest_name, unsigned airline, unsigned level,
            size_t order_size) {
     if (order_size > airlines[airline].tickets_left[level - 1])
         return false;
@@ -94,7 +94,7 @@ int find_airline(Airline* airlines, unsigned& num_of_airlines, const string& air
     else return int(i);
 }
 
-void _list_guests(Airline* airlines, unsigned airline) {
+void list_guests(Airline* airlines, unsigned airline) {
     size_t size = airlines[airline].guests_ordered.size;
     if (size == 0) {
         cout << "No one has booked tickets." << endl;
@@ -171,7 +171,7 @@ void book(Airline* airlines, unsigned num_of_airlines, const string& air,
     }
     sscanf(level.c_str(), "%zd", &order_level);
     sscanf(size.c_str(), "%zd", &order_size);
-    if (!_book(airlines, guest_name, airline, order_level, order_size)) {
+    if (!book(airlines, guest_name, airline, order_level, order_size)) {
         cout << "Sorry, but there aren't enough seats. Do you want to wait in queue?"
              << "(yes/no) [yes] ";
         while (true) {
@@ -194,5 +194,5 @@ void list_guests(Airline* airlines, unsigned num_of_airlines, const std::string&
         cout << "Sorry, we failed to find such airline." << endl;
         return;
     }
-    _list_guests(airlines, airline);
+    list_guests(airlines, airline);
 }

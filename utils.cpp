@@ -19,7 +19,7 @@ void init_system(Airline*& airlines, unsigned& num_of_airlines, const string& da
     fin.close();
 }
 
-Airline* _search_airline(Airline* airlines, unsigned num_of_airlines, const string& to, unsigned& ans_length) {
+Airline* search_airline(Airline* airlines, unsigned num_of_airlines, const string& to, unsigned& ans_length) {
     auto ans = new Airline[num_of_airlines];
     ans_length = 0;
     for (int i = 0; i < num_of_airlines; ++i)
@@ -143,7 +143,7 @@ void _list_guests(Airline* airlines, unsigned airline) {
 
 void search_airline(Airline* airlines, unsigned num_of_airlines, const string& airline) {
     unsigned ans_length = 0;
-    auto ans = _search_airline(airlines, num_of_airlines, airline, ans_length);
+    auto ans = search_airline(airlines, num_of_airlines, airline, ans_length);
     if (!ans) cout << "Sorry, we failed to find such airlines." << endl;
     else {
         cout << ans_length << " results found." << endl;

@@ -18,7 +18,7 @@ class Queue {
     //数组的实际大小
     unsigned size = 5;
 public:
-    Queue() {}
+    Queue() = default;
     Queue(const Queue& b);
     Queue& operator=(const Queue& b);
     ~Queue() { delete[] data; }
@@ -26,9 +26,11 @@ public:
     Guest& back();
     void push(const Guest& x);
     void pop();
-    const bool is_full();
-    const bool isempty();
-    const size_t length();
+    bool is_full();
+    bool is_empty() const;
+    size_t length();
+    Guest* begin();
+    Guest* end();
 };
 
 #endif /* Queue_hpp */

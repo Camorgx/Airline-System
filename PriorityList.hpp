@@ -28,7 +28,7 @@ public:
 	//从优先链表中查找x并删除遇到的第一个x
 	void remove(const Guest& x);
     //从优先链表中删除所有的x
-    void removeall(const Guest& x);
+    void remove_all(const Guest& x);
 };
 
 #endif /* PriorityList_hpp */

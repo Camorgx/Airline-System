@@ -20,6 +20,7 @@ class Queue {
 public:
     Queue() {}
     Queue(const Queue& b);
+    Queue& operator=(const Queue& b);
     ~Queue() { delete[] data; }
     Guest& front();
     Guest& back();

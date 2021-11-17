@@ -3,7 +3,6 @@
 using namespace std;
 
 Queue::Queue(const Queue& b) {
-    delete[] data;
     data = new Guest[size = b.size];
     head = b.head; tail = b.tail;
     memcpy(data, b.data, size * sizeof(Guest));
@@ -75,4 +74,12 @@ const bool Queue::isempty() {
 const size_t Queue::length() {
     if (tail > head) return tail - head - 1;
     else return tail + size - head - 1;
+}
+
+Queue& Queue::operator=(const Queue &b) {
+    delete[] data;
+    data = new Guest[size = b.size];
+    head = b.head; tail = b.tail;
+    memcpy(data, b.data, size * sizeof(Guest));
+    return *this;
 }

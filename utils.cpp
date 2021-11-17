@@ -85,7 +85,12 @@ bool return_ticket(Airline* airlines, const std::string& guest_name, unsigned ai
     return true;
 }
 
-int find_airline(Airline* airlines, unsigned& num_of_airlines, const string& airline) {
+void return_ticket(Airline* airlines, unsigned num_of_airlines, const string& airline,
+                   const string& guest_name, const string& level) {
+
+}
+
+int find_airline(Airline* airlines, unsigned num_of_airlines, const string& airline) {
     unsigned i = 0;
     for (; i < num_of_airlines; ++i)
         if (airlines[i].id_airline == airline)

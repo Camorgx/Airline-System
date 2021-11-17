@@ -14,8 +14,10 @@ void book(Airline* airlines, unsigned num_of_airlines, const std::string& airlin
 void string_split(std::vector<std::string>& ans, const std::string& source, const std::string& split = " ");
 std::string to_lower(std::string in);
 bool return_ticket(Airline* airlines, const std::string& guest_name, unsigned airline, unsigned level);
+void return_ticket(Airline* airlines, unsigned num_of_airlines, const std::string& airline,
+                   const std::string& guest_name, const std::string& level);
 void list_guests(Airline* airlines, unsigned airline);
 void list_guests(Airline* airlines, unsigned num_of_airlines, const std::string& airline);
-int find_airline(Airline* airlines, unsigned& num_of_airlines, const std::string& airline);
+int find_airline(Airline* airlines, unsigned num_of_airlines, const std::string& airline);
 
 #endif /* utils_hpp */

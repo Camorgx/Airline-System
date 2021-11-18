@@ -8,7 +8,7 @@ class Guest {
 public:
     std::string name;
     unsigned seat[3][20] = {0};
-    unsigned tickets_needed[3] = {0};
+    unsigned tickets_needed = 0, level_needed = 1;
     unsigned num_of_tickets[3] = {0};
     
     Guest() = default;

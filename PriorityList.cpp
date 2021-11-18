@@ -1,5 +1,14 @@
 ﻿#include "PriorityList.hpp"
 
+PriorityList::~PriorityList() {
+    auto p = head;
+    while (p) {
+        auto tmp = p;
+        p = p->next;
+        delete tmp;
+    }
+}
+
 PriorityList::PriorityList(const PriorityList& b) {
     head->next = tail; tail->prev = head;
     size = b.size;

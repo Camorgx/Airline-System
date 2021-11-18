@@ -1,5 +1,16 @@
 ﻿#include "PriorityList.hpp"
 
+PriorityList& PriorityList::operator=(const PriorityList& b) {
+    head->next = tail; tail->prev = head;
+    size = b.size;
+    Node* p = b.head->next;
+    while (p != b.tail) {
+        insert(p->data);
+        p = p->next;
+    }
+    return *this;
+}
+
 PriorityList::~PriorityList() {
     auto p = head;
     while (p) {

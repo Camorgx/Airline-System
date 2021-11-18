@@ -201,3 +201,41 @@ void list_guests(Airline* airlines, unsigned num_of_airlines, const std::string&
     }
     list_guests(airlines, airline);
 }
+
+string get_help(const string& help_command) {
+    string ans;
+    if (help_command.length() == 0) {
+        ans = R"(This is a simple airline system, which enables you to do some simple things about airlines.
+Supported commands: exit, help, search, list, book.
+Type "help [command] to get more information.
+)";
+    }
+    else if (help_command == "exit") {
+        ans = R"(Command "exit", to exit the system.
+Format: exit
+)";
+    }
+    else if (help_command == "help") {
+        ans = R"(Command "help", to display general help information.
+If Command is certain, display the usage of the given Command.
+Format: help [Command]
+)";
+    }
+    else if (help_command == "search") {
+        ans = R"(Command "search", to search a given airline, giving its detailed information.
+Format: search [Destination]
+)";
+    }
+    else if (help_command == "list") {
+        ans = R"(Command "list", to list guests who booked tickets of a given airline, giving its detailed information.
+Format: list [Airline]
+)";
+    }
+    else if (help_command == "book") {
+        ans = R"(Command "book", to book certain tickets of a given airline for a given guest. If failed, you will be
+asked whether the guest want to wait in the waiting queue.
+Format: book [Airline] [Guest Name] [Level of the Tickets] [Num of the Tickets]
+)";
+    }
+    return ans;
+}

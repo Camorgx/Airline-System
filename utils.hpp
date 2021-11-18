@@ -5,6 +5,8 @@
 #include <vector>
 
 void init_system(Airline*& airlines, unsigned& num_of_airlines, const std::string& data_file);
+std::string get_help(const std::string& help_command = "");
+
 Airline* search_airline(Airline* airlines, unsigned num_of_airlines, const std::string& to, unsigned& ans_length);
 void search_airline(Airline* airlines, unsigned num_of_airlines, const std::string& airline);
 bool book(Airline* airlines, const std::string& guest_name, unsigned airline, unsigned level,

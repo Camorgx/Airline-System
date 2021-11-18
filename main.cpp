@@ -40,6 +40,14 @@ int main(int argc, const char * argv[]) {
             }
             list_guests(airlines, num_of_airlines, input_split[1]);
         }
+        else if (input_split[0] == "help") {
+            if (input_split.size() != 1 && input_split.size() != 2) {
+                cout << "Please check your input." << endl;
+                continue;
+            }
+            if (input_split.size() == 1) cout << get_help();
+            else cout << get_help(input_split[1]);
+        }
         else cout << "Please check your input." << endl;
     }
     return 0;

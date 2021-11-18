@@ -76,6 +76,14 @@ void TestPriorityList() {
         p = p->next;
     }
     std::cout << std::endl;
+
+    PriorityList b(a);
+    p = b.head->next;
+    while (p != b.tail) {
+        std::cout << p->data.name << std::endl;
+        p = p->next;
+    }
+    std::cout << std::endl;
 }
 
 #endif /* test_h */

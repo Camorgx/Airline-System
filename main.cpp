@@ -64,7 +64,6 @@ int main(int argc, const char * argv[]) {
         else cout << "Please check your input." << endl;
     }
 #else
-    TestQueue();
     TestPriorityList();
 #endif
     return 0;

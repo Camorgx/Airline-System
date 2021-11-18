@@ -1,8 +1,6 @@
 ﻿#ifndef Airline_hpp
 #define Airline_hpp
 
-#include <utility>
-
 #include "Guest.hpp"
 #include "QueueList.hpp"
 #include "PriorityList.hpp"
@@ -79,6 +77,7 @@ public:
     bool operator<(const Airline& b) const {
         return id_airline < b.id_airline;
     }
+    Airline& operator=(const Airline& b) = default;
 };
 
 #endif /* Airline_hpp */

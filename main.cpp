@@ -1,13 +1,16 @@
 ﻿#include <iostream>
-#include <string>
-#include "Airline.hpp"
 #include "utils.hpp"
 using namespace std;
 
 Airline* airlines;
 unsigned num_of_airlines;
 
+#ifdef tes
+#include "test.hpp"
+#endif
+
 int main(int argc, const char * argv[]) {
+#ifndef tes
     init_system(airlines, num_of_airlines, "database.txt");
     while (true) {
         string input; getline(cin, input);
@@ -40,6 +43,16 @@ int main(int argc, const char * argv[]) {
             }
             list_guests(airlines, num_of_airlines, input_split[1]);
         }
+        //return Airline Guest Level
+        else if (input_split[0] == "return") {
+            if (input_split.size() != 4) {
+                cout << "Please check your input." << endl;
+                continue;
+            }
+            return_ticket(airlines, num_of_airlines, input_split[1],
+                          input_split[2], input_split[3]);
+        }
+        //help Help_command
         else if (input_split[0] == "help") {
             if (input_split.size() != 1 && input_split.size() != 2) {
                 cout << "Please check your input." << endl;
@@ -50,5 +63,9 @@ int main(int argc, const char * argv[]) {
         }
         else cout << "Please check your input." << endl;
     }
+#else
+    TestQueue();
+    TestPriorityList();
+#endif
     return 0;
 }

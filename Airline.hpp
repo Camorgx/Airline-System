@@ -4,7 +4,7 @@
 #include <utility>
 
 #include "Guest.hpp"
-#include "Queue.hpp"
+#include "QueueList.hpp"
 #include "PriorityList.hpp"
 
 //Every day in a week
@@ -66,7 +66,7 @@ public:
     unsigned tickets_left[3] = {level_size[0], level_size[1], level_size[2]};
     bool is_ordered[3][200] = {false};
     PriorityList guests_ordered;
-    Queue guest_waiting;
+    QueueList guest_waiting;
     
     Airline() = default;
     Airline(std::string fro, std::string t, std::string airline,

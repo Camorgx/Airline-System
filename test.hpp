@@ -1,18 +1,18 @@
 ﻿#ifndef test_h
 #define test_h
 
-#include "Queue.hpp"
+#include "QueueList.hpp"
 #include <iostream>
 
 void TestQueue() {
-    Queue q;
+    QueueList q;
     q.push(Guest("1")); std::cout << q.back().name << std::endl;
     q.push(Guest("2")); std::cout << q.back().name << std::endl;
     q.push(Guest("3")); std::cout << q.back().name << std::endl;
     q.push(Guest("4")); std::cout << q.back().name << std::endl;
     q.push(Guest("5")); std::cout << q.back().name << std::endl;
     q.push(Guest("6")); std::cout << q.back().name << std::endl;
-    Queue qq(q);
+    QueueList qq(q);
     std::cout << qq.back().name <<std::endl;
     for (int i = 0; i < 6; ++i) {
         std::cout << q.front().name << ' ' << q.length() << std::endl;
@@ -69,7 +69,7 @@ void TestPriorityList() {
     }
     std::cout << std::endl;
     
-    a.removeall(v[3]);
+    a.remove_all(v[3]);
     p = a.head->next;
     while(p != a.tail) {
         std::cout << p->data.name << std::endl;

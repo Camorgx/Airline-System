@@ -3,4 +3,4 @@ project(Airline_System)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Airline_System main.cpp Airline.cpp PriorityList.cpp Queue.cpp utils.cpp)
+add_executable(Airline_System main.cpp Airline.cpp PriorityList.cpp QueueList.cpp utils.cpp)

@@ -362,7 +362,7 @@ Type "help [command] to get more information.
 usage: )";
         string tmp, ttmp;
         for (auto i = program_name.rbegin(); i != program_name.rend(); ++i)
-            if (*i != '\\') tmp.push_back(*i);
+            if (*i != '\\' && *i != '/') tmp.push_back(*i);
             else break;
         for (auto i = tmp.rbegin(); i != tmp.rend(); ++i)
             ttmp.push_back(*i);

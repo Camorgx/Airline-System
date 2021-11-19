@@ -6,6 +6,7 @@
 
 void init_system(Airline*& airlines, unsigned& num_of_airlines, const std::string& data_file);
 std::string get_help(const std::string& help_command = "");
+std::string to_lower(std::string in);
 
 Airline* search_airline(Airline* airlines, unsigned num_of_airlines, const std::string& to, unsigned& ans_length);
 void search_airline(Airline* airlines, unsigned num_of_airlines, const std::string& airline);
@@ -14,7 +15,6 @@ bool book(Airline* airlines, const std::string& guest_name, unsigned airline, un
 void book(Airline* airlines, unsigned num_of_airlines, const std::string& airline,
           const std::string& guest_name, const std::string& level, const std::string& size);
 void string_split(std::vector<std::string>& ans, const std::string& source, const std::string& split = " ");
-std::string to_lower(std::string in);
 bool return_ticket(Airline* airlines, const std::string& guest_name, unsigned airline, unsigned level);
 void return_ticket(Airline* airlines, unsigned num_of_airlines, const std::string& airline,
                    const std::string& guest_name, const std::string& level);

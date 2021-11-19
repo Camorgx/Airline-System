@@ -59,7 +59,9 @@ public:
     std::string to;
     std::string id_airline;
     std::string id_plane;
+    //The weekday which the plane will fly in a week.
     Weekday time = Weekday::Monday;
+    //The closest day the plane will fly from today.
     Date closest;
     unsigned tickets_left[3] = {level_size[0], level_size[1], level_size[2]};
     bool is_ordered[3][200] = {false};

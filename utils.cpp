@@ -82,6 +82,23 @@ std::string to_lower(std::string in) {
 }
 
 bool return_ticket(Airline* airlines, const std::string& guest_name, unsigned airline, unsigned level) {
+    auto guest_node = airlines[airline].guests_ordered.find(Guest(guest_name));
+    if (!guest_node) {
+        cout << "Sorry, we failed to find the guest in the requested airline." << endl;
+        return false;
+    }
+    auto& guest = guest_node->data;
+    if (guest.num_of_tickets[level - 1] == 0) {
+        cout << guest.name << " didn't book any ticket of level " << level << '.' << endl;
+        return false;
+    }
+    for (auto i = 0; i < guest.num_of_tickets[level - 1]; ++i)
+        airlines[airline].is_ordered[level - 1][i] = false;
+    airlines[airline].tickets_left[level - 1] += guest.num_of_tickets[level - 1];
+    memset(guest.seat[level - 1], 0, sizeof(guest.seat[level - 1]));
+    guest.num_of_tickets[level - 1] = 0;
+    if (!guest.num_of_tickets[0] && !guest.num_of_tickets[1] && !guest.num_of_tickets[2])
+        airlines[airline].guests_ordered.remove(guest_node);
     return true;
 }
 
@@ -96,7 +113,7 @@ void return_ticket(Airline* airlines, unsigned num_of_airlines, const string& ai
     sscanf(level.c_str(), "%u", &ticket_level);
     if (return_ticket(airlines, guest_name, airline, ticket_level)) {
         if (!airlines[airline].guest_waiting.is_empty()) {
-            for (auto ptr = airlines[airline].guest_waiting.head;
+            for (auto ptr = airlines[airline].guest_waiting.head->next;
                 ptr != airlines[airline].guest_waiting.tail; ptr = ptr->next) {
                 auto& p = ptr->data;
                 if (p.level_needed == ticket_level
@@ -107,6 +124,8 @@ void return_ticket(Airline* airlines, unsigned num_of_airlines, const string& ai
                         string in; getline(cin, in);
                         if (in.length() == 0 || to_lower(in) == "yes") {
                             book(airlines, p.name, airline, p.level_needed, p.tickets_needed);
+                            airlines[airline].guest_waiting.remove(p);
+                            break;
                         }
                         else if (to_lower(in) != "no")
                             cout << R"(Please type "yes" or "no".)" << endl;
@@ -267,6 +286,16 @@ Format: list [Airline]
 asked whether the guest wants to wait in the waiting queue.
 Format: book [Airline] [Guest Name] [Level of the Tickets] [Num of the Tickets]
 )";
+    }
+    else if (help_command == "return") {
+        ans = R"(Command "return", to return certain level of tickets bought by a given guest of a certain airline.
+If succeeded and there are enough tickets for some people in the waiting queue, they will be asked whether they want to
+book the ticketes returned by the previous guest. A guest would be removed from the guest list if all his tickets were returned.
+Format: return [Airline] [Guest Name] [Level of the Tickets]
+)";
+    }
+    else {
+        ans = "Sorry, we failed to find such command.\n";
     }
     return ans;
 }

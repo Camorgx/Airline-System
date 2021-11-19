@@ -52,6 +52,15 @@ int main(int argc, const char * argv[]) {
             return_ticket(airlines, num_of_airlines, input_split[1],
                           input_split[2], input_split[3]);
         }
+        //leave-queue Airline Guest Level_Needed Num_of_Tickets_Needed
+        else if (input_split[0] == "leave-queue") {
+            if (input_split.size() != 5) {
+                cout << "Please check your input." << endl;
+                continue;
+            }
+            leave_queue(airlines, num_of_airlines, input_split[1], input_split[2],
+                        input_split[3], input_split[4]);
+        }
         //help Help_command
         else if (input_split[0] == "help") {
             if (input_split.size() != 1 && input_split.size() != 2) {
@@ -66,5 +75,6 @@ int main(int argc, const char * argv[]) {
 #else
     TestPriorityList();
 #endif
+    delete[] airlines;
     return 0;
 }

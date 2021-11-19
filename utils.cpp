@@ -257,10 +257,7 @@ void book(Airline* airlines, unsigned num_of_airlines, const string& air,
         vector<string> in_split;
         string_split(in_split, in);
         if (in_split[0] == "wait") {
-            Guest tmp = Guest(guest_name);
-            tmp.tickets_needed = order_size;
-            tmp.level_needed = order_level;
-            airlines[airline].guest_waiting.push(tmp);
+            airlines[airline].guest_waiting.push(Guest(guest_name, order_level, order_size));
             cout << "You have joined the waiting queue." << endl;
         }
         else if (in_split[0] == "book") {
@@ -281,6 +278,18 @@ void list_guests(Airline* airlines, unsigned num_of_airlines, const std::string&
         return;
     }
     list_guests(airlines, airline);
+}
+
+void leave_queue(Airline* airlines, unsigned num_of_airlines, string air, string guest_name,
+                 string level, string num) {
+    unsigned int level_needed = 1, num_needed = 0;
+    sscanf(level.c_str(), "%ud", &level_needed);
+    sscanf(num.c_str(), "%ud", &num_needed);
+    int airline = find_airline(airlines, num_of_airlines, air);
+    if (airline == -1) {
+        cout << "Sorry, we failed to find the airline." << endl;
+        return;
+    }
 }
 
 string get_help(const string& help_command) {

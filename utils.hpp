@@ -21,5 +21,7 @@ void return_ticket(Airline* airlines, unsigned num_of_airlines, const std::strin
 void list_guests(Airline* airlines, unsigned airline);
 void list_guests(Airline* airlines, unsigned num_of_airlines, const std::string& airline);
 int find_airline(Airline* airlines, unsigned num_of_airlines, const std::string& airline);
+void leave_queue(Airline* airlines, unsigned num_of_airlines, std::string airline, std::string guest_name,
+                 std::string level, std::string num);
 
 #endif /* utils_hpp */

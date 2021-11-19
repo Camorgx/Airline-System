@@ -9,9 +9,13 @@ unsigned num_of_airlines;
 #include "test.hpp"
 #endif
 
-int main(int argc, const char * argv[]) {
+int main(int argc, const char* argv[]) {
 #ifndef tes
-    init_system(airlines, num_of_airlines, "database.txt");
+    string input_file;
+    if (argc == 2) input_file = string(argv[1]);
+    else input_file = "database.txt";
+    if (!init_system(airlines, num_of_airlines, input_file))
+        return 1;
     while (true) {
         string input; getline(cin, input);
         if (input.length() == 0) continue;
@@ -67,8 +71,8 @@ int main(int argc, const char * argv[]) {
                 cout << "Please check your input." << endl;
                 continue;
             }
-            if (input_split.size() == 1) cout << get_help();
-            else cout << get_help(input_split[1]);
+            if (input_split.size() == 1) cout << get_help(string(argv[0]));
+            else cout << get_help(string(argv[0]), input_split[1]);
         }
         else cout << "Please check your input." << endl;
     }

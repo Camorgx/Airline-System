@@ -4,8 +4,8 @@
 #include "Airline.hpp"
 #include <vector>
 
-void init_system(Airline*& airlines, unsigned& num_of_airlines, const std::string& data_file);
-std::string get_help(const std::string& help_command = "");
+bool init_system(Airline*& airlines, unsigned& num_of_airlines, const std::string& data_file);
+std::string get_help(const std::string& program_name = "Airline_System.exe", const std::string & help_command = "");
 std::string to_lower(std::string in);
 
 Airline* search_airline(Airline* airlines, unsigned num_of_airlines, const std::string& to, unsigned& ans_length);

@@ -4,8 +4,12 @@
 #include <algorithm>
 using namespace std;
 
-void init_system(Airline*& airlines, unsigned& num_of_airlines, const string& data_file) {
+bool init_system(Airline*& airlines, unsigned& num_of_airlines, const string& data_file) {
     ifstream fin; fin.open(data_file);
+    if (!fin) {
+        cout << "Failed to open data file \"" << data_file << "\"." <<endl;
+        return false;
+    }
     fin >> num_of_airlines;
     airlines = new Airline[num_of_airlines];
     for (int i = 0; i < num_of_airlines; ++i) {
@@ -17,6 +21,8 @@ void init_system(Airline*& airlines, unsigned& num_of_airlines, const string& da
     }
     sort(airlines, airlines + num_of_airlines);
     fin.close();
+    cout << "System initialized with data file \"" << data_file << "\"." << endl;
+    return true;
 }
 
 Airline* search_airline(Airline* airlines, unsigned num_of_airlines, const string& to, unsigned& ans_length) {
@@ -347,13 +353,21 @@ void leave_queue(Airline* airlines, unsigned num_of_airlines, string air, string
     cout << guest_name << " has left the waiting queue of " << air << '.' << endl;
 }
 
-string get_help(const string& help_command) {
+string get_help(const std::string& program_name, const string& help_command) {
     string ans;
     if (help_command.length() == 0) {
         ans = R"(This is a simple airline system, which enables you to do some simple things about airlines.
-Supported commands: exit, help, search, list, book.
+Supported commands: exit, help, search, list, book, return, leave-queue.
 Type "help [command] to get more information.
-)";
+usage: )";
+        string tmp, ttmp;
+        for (auto i = program_name.rbegin(); i != program_name.rend(); ++i)
+            if (*i != '\\') tmp.push_back(*i);
+            else break;
+        for (auto i = tmp.rbegin(); i != tmp.rend(); ++i)
+            ttmp.push_back(*i);
+        ans.append(ttmp);
+        ans.append(" [Data File]\n");
     }
     else if (help_command == "exit") {
         ans = R"(Command "exit", to exit the system.

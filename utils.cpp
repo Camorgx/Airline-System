@@ -123,7 +123,10 @@ void return_ticket(Airline* airlines, unsigned num_of_airlines, const string& ai
         return;
     }
     unsigned ticket_level;
-    sscanf(level.c_str(), "%u", &ticket_level);
+    if (sscanf(level.c_str(), "%u", &ticket_level) != 1) {
+        cout << "Please check your input." << endl;
+        return;
+    }
     if (return_ticket(airlines, guest_name, airline, ticket_level)) {
         if (!airlines[airline].guest_waiting.is_empty()) {
             for (auto ptr = airlines[airline].guest_waiting.head->next;
@@ -132,7 +135,7 @@ void return_ticket(Airline* airlines, unsigned num_of_airlines, const string& ai
                 if (p.level_needed == ticket_level
                     && airlines[airline].tickets_left[ticket_level - 1] >= p.tickets_needed) {
                     cout << p.name << ", we have enough tickets now, do you want to book them?"
-                            << "(yes/no) [yes] ";
+                            << " (yes/no) [yes] ";
                     while (true) {
                         string in; getline(cin, in);
                         if (in.length() == 0 || to_lower(in) == "yes") {
@@ -204,6 +207,23 @@ void list_guests(Airline* airlines, unsigned airline) {
         }
         p = p->next;
     }
+    size = airlines[airline].guest_waiting.size;
+    if (size == 0) {
+        cout << "No one is waiting to book tickets." << endl;
+        return;
+    }
+    else if (size == 1) {
+        cout << "One guest is waiting to book tickets." << endl;
+    }
+    else cout << size << " guests is waiting to book tickets." << endl;
+    auto ptr = airlines[airline].guest_waiting.head->next;
+    while (ptr != airlines[airline].guest_waiting.tail) {
+        if (ptr->data.tickets_needed == 1)
+            cout << ptr->data.name << " need one ticket of level " << ptr->data.level_needed;
+        else cout << ptr->data.name << " need " << ptr->data.tickets_needed << " tickets of level "
+            << ptr->data.level_needed << '.' << endl;
+        ptr = ptr->next;
+    }
 }
 
 void search_airline(Airline* airlines, unsigned num_of_airlines, const string& airline) {
@@ -229,45 +249,69 @@ void search_airline(Airline* airlines, unsigned num_of_airlines, const string& a
 
 void book(Airline* airlines, unsigned num_of_airlines, const string& air,
           const string& guest_name, const string& level, const string& size) {
-    size_t order_size, order_level;
+    size_t order_size = 0, order_level = 1;
     int airline = find_airline(airlines, num_of_airlines, air);
     if (airline == -1) {
         cout << "Sorry, we failed to find such airline." << endl;
         return;
     }
-    sscanf(level.c_str(), "%zd", &order_level);
-    sscanf(size.c_str(), "%zd", &order_size);
+    if (sscanf(level.c_str(), "%zd", &order_level) != 1
+        || sscanf(size.c_str(), "%zd", &order_size) != 1 || order_level == 0) {
+        cout << "Please check your input." << endl;
+        return;
+    }
+    if (order_size > level_size[order_level - 1]) {
+        cout << "Level " << level << " has only " << level_size[order_level - 1]
+            << "seats. The num of tickets you requested is too large." << endl;
+        return;
+    }
     if (!book(airlines, guest_name, airline, order_level, order_size)) {
         cout << "Sorry, but there aren't enough seats. " << endl;
         unsigned len = 0;
         auto ans = search_airline(airlines, num_of_airlines,
             airlines[airline].to, len);
-        if (ans) {
+        if (len > 1) {
             cout << "But we have airlines toward the same destination that fits your acquirement:" << endl;
             for(int i = 0; i < len; ++i)
-                if (ans[i].tickets_left[order_level - 1] >= order_size)
+                if (ans[i].tickets_left[order_level - 1] >= order_size
+                    && ans[i].id_airline != air)
                     cout << ans[i].id_airline << ", " << ans[i].id_plane << ", "
                     << "from " << ans[i].from << " to " << ans[i].to << ", "
                     << to_string(ans[i].time) << ", " << ans[i].closest.to_string() << endl;
-            delete[] ans;
-        }
-        cout << "Do you want to wait in queue or book another airline?" << endl;
-        string in; getline(cin, in);
-        if (in.length() == 0) return;
-        vector<string> in_split;
-        string_split(in_split, in);
-        if (in_split[0] == "wait") {
-            airlines[airline].guest_waiting.push(Guest(guest_name, order_level, order_size));
-            cout << "You have joined the waiting queue." << endl;
-        }
-        else if (in_split[0] == "book") {
-            if (in_split.size() != 5) {
-                cout << "Please check your input." << endl;
-                return;
+            cout << "Do you want to wait in queue or book another airline?" << endl;
+            string in; getline(cin, in);
+            if (in.length() == 0) return;
+            vector<string> in_split;
+            string_split(in_split, in);
+            if (in_split[0] == "wait") {
+                airlines[airline].guest_waiting.push(Guest(guest_name, order_level, order_size));
+                cout << "You have joined the waiting queue." << endl;
             }
-            book(airlines, num_of_airlines, in_split[1], in_split[2], in_split[3],
-                in_split[4]);
+            else if (in_split[0] == "book") {
+                if (in_split.size() != 5) {
+                    cout << "Please check your input." << endl;
+                    return;
+                }
+                book(airlines, num_of_airlines, in_split[1], in_split[2], in_split[3],
+                    in_split[4]);
+            }
         }
+        else {
+            cout << "Do you want to wait in queue or book another airline? "
+                << "(yes/no) [yes] ";
+            while (true) {
+                string in; getline(cin, in);
+                if (in.length() == 0 || to_lower(in) == "yes") {
+                    airlines[airline].guest_waiting.push(Guest(guest_name, order_level, order_size));
+                    cout << "You have joined the waiting queue." << endl;
+                    break;
+                }
+                else if (to_lower(in) != "no")
+                    cout << R"(Please type "yes" or "no".)" << endl;
+                else break;
+            }
+        }
+        delete[] ans;
     }
 }
 
@@ -283,13 +327,24 @@ void list_guests(Airline* airlines, unsigned num_of_airlines, const std::string&
 void leave_queue(Airline* airlines, unsigned num_of_airlines, string air, string guest_name,
                  string level, string num) {
     unsigned int level_needed = 1, num_needed = 0;
-    sscanf(level.c_str(), "%ud", &level_needed);
-    sscanf(num.c_str(), "%ud", &num_needed);
+    if (sscanf(level.c_str(), "%ud", &level_needed) != 1
+        || sscanf(num.c_str(), "%ud", &num_needed) != 1) {
+        cout << "Please check your input." << endl;
+        return;
+    }
     int airline = find_airline(airlines, num_of_airlines, air);
     if (airline == -1) {
         cout << "Sorry, we failed to find the airline." << endl;
         return;
     }
+    Guest tmp(guest_name, level_needed, num_needed);
+    auto p = airlines[airline].guest_waiting.find(tmp);
+    if (!p) {
+        cout << "Sorry, we failed to find the guest." << endl;
+        return;
+    }
+    airlines[airline].guest_waiting.remove(p);
+    cout << guest_name << " has left the waiting queue of " << air << '.' << endl;
 }
 
 string get_help(const string& help_command) {
@@ -332,6 +387,11 @@ Format: book [Airline] [Guest Name] [Level of the Tickets] [Num of the Tickets]
 If succeeded and there are enough tickets for some people in the waiting queue, they will be asked whether they want to
 book the ticketes returned by the previous guest. A guest will be removed from the guest list if all his tickets are returned.
 Format: return [Airline] [Guest Name] [Level of the Tickets]
+)";
+    }
+    else if (help_command == "leave-queue") {
+        ans = R"(Command "leave-queue", to make a certain guest leave the waiting queue of a given airline.
+Format: leave-queue [Airline] [Guest name] [Level Needed] [Num of Tickets Needed]
 )";
     }
     else {

@@ -82,7 +82,7 @@ bool book(Airline* airlines, const string& guest_name, unsigned airline, unsigne
                     cout << '.' << endl;
                     break;
                 }
-                else cout << ', ';
+                else cout << ", ";
             }
         }
     }

@@ -21,19 +21,19 @@ void TestQueue() {
     try {
         q.pop();
     }
-    catch (const QueueException& e)  {
+    catch (const QueueListException& e)  {
         std::cout << "Fine\n" << e.what() << std::endl;
     }
     try {
         auto i = q.front();
     }
-    catch (const QueueException& e) {
+    catch (const QueueListException& e) {
         std::cout << "Fine\n" << e.what() << std::endl;
     }
     try {
         auto i = q.back();
     }
-    catch (const QueueException& e) {
+    catch (const QueueListException& e) {
         std::cout << "Fine\n" << e.what() << std::endl;
     }
 }

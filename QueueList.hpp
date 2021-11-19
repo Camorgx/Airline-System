@@ -4,9 +4,9 @@
 #include "PriorityList.hpp"
 #include <stdexcept>
 
-class QueueException : public std::runtime_error {
+class QueueListException : public std::runtime_error {
 public:
-    explicit QueueException(const std::string& information) : runtime_error(information) {}
+    explicit QueueListException(const std::string& information) : runtime_error(information) {}
     const char* what() const noexcept override { return runtime_error::what(); }
 };
 

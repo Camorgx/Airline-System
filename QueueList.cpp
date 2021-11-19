@@ -20,7 +20,7 @@ void QueueList::push(const Guest& x) {
 }
 
 void QueueList::pop() {
-    if (is_empty()) throw QueueException("The QueueList has already been empty");
+    if (is_empty()) throw QueueListException("The QueueList has already been empty");
     auto tmp = tail->prev;
     tmp->prev->next = tail;
     tail->prev = tmp->prev;

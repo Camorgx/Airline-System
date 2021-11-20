@@ -118,6 +118,7 @@ bool return_ticket(Airline* airlines, const std::string& guest_name, unsigned ai
     guest.num_of_tickets[level - 1] = 0;
     if (!guest.num_of_tickets[0] && !guest.num_of_tickets[1] && !guest.num_of_tickets[2])
         airlines[airline].guests_ordered.remove(guest_node);
+    cout << "Requested tickets have been returned." << endl;
     return true;
 }
 
@@ -399,7 +400,7 @@ Format: book [Airline] [Guest Name] [Level of the Tickets] [Num of the Tickets]
     else if (help_command == "return") {
         ans = R"(Command "return", to return certain level of tickets bought by a given guest of a certain airline.
 If succeeded and there are enough tickets for some people in the waiting queue, they will be asked whether they want to
-book the ticketes returned by the previous guest. A guest will be removed from the guest list if all his tickets are returned.
+book the tickets returned by the previous guest. A guest will be removed from the guest list if all his tickets are returned.
 Format: return [Airline] [Guest Name] [Level of the Tickets]
 )";
     }

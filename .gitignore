@@ -3,6 +3,6 @@
 .idea
 .vs
 cmake-build-debug
-CMakeSettings.json
 build
 out
+cmake-build-debug-visual-studio/

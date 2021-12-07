@@ -15,7 +15,7 @@ void TestQueue() {
     QueueList qq(q);
     std::cout << qq.back().name <<std::endl;
     for (int i = 0; i < 6; ++i) {
-        std::cout << q.front().name << ' ' << q.length() << std::endl;
+        std::cout << q.front().name << ' ' << q.size << std::endl;
         q.pop();
     }
     try {
@@ -44,7 +44,7 @@ void TestQueue() {
 void TestPriorityList() {
     std::vector<Guest> v = {Guest("0"), Guest("1"), Guest("2"), Guest("3")};
     PriorityList a;
-    
+
     a.insert(v[3]);
     PriorityList::Node* p = a.head->next;
     while(p != a.tail) {
@@ -52,7 +52,7 @@ void TestPriorityList() {
         p = p->next;
     }
     std::cout << std::endl;
-    
+
     a.insert(v[1]);
     p = a.head->next;
     while(p != a.tail) {
@@ -60,7 +60,7 @@ void TestPriorityList() {
         p = p->next;
     }
     std::cout << std::endl;
-    
+
     a.insert(v[3]);
     p = a.head->next;
     while(p!= a.tail) {
@@ -68,7 +68,7 @@ void TestPriorityList() {
         p = p->next;
     }
     std::cout << std::endl;
-    
+
     a.remove_all(v[3]);
     p = a.head->next;
     while(p != a.tail) {
@@ -84,6 +84,12 @@ void TestPriorityList() {
         p = p->next;
     }
     std::cout << std::endl;
+}
+
+#include "Vector.hpp"
+
+void VectorTest() {
+
 }
 
 #endif /* test_h */

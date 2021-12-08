@@ -12,7 +12,7 @@ bool init_system(Airline*& airlines, unsigned& num_of_airlines, const string& da
     }
     fin >> num_of_airlines;
     airlines = new Airline[num_of_airlines];
-    for (int i = 0; i < num_of_airlines; ++i) {
+    for (unsigned i = 0; i < num_of_airlines; ++i) {
         string from, to, airline, plane;
         unsigned weekday;
         fin >> from >> to >> airline >> plane;
@@ -28,7 +28,7 @@ bool init_system(Airline*& airlines, unsigned& num_of_airlines, const string& da
 Airline* search_airline(Airline* airlines, unsigned num_of_airlines, const string& to, unsigned& ans_length) {
     auto ans = new Airline[num_of_airlines];
     ans_length = 0;
-    for (int i = 0; i < num_of_airlines; ++i)
+    for (unsigned i = 0; i < num_of_airlines; ++i)
         if (airlines[i].to == to) ans[ans_length++] = airlines[i];
     if (ans_length == 0) {
         delete[] ans;
@@ -39,7 +39,7 @@ Airline* search_airline(Airline* airlines, unsigned num_of_airlines, const strin
 
 void string_split(vector<string>& ans, const string& source, const string& split) {
     auto pos2 = source.find(split);
-    int pos1 = 0;
+    unsigned pos1 = 0;
     while(pos2 != string::npos) {
         ans.push_back(source.substr(pos1, pos2 - pos1));
         pos1 = pos2 + split.size();
@@ -61,7 +61,7 @@ bool book(Airline* airlines, const string& guest_name, unsigned airline, unsigne
     cout << "Seat numbers are ";
     if (!guest_node) {
         Guest guest(guest_name);
-        for (int i = 0; i < level_size[airline]; ++i) {
+        for (unsigned i = 0; i < level_size[airline]; ++i) {
             if (!airlines[airline].is_ordered[level - 1][i]) {
                 cout << i;
                 guest.seat[level - 1][guest.num_of_tickets[level - 1]++] = i;
@@ -78,7 +78,7 @@ bool book(Airline* airlines, const string& guest_name, unsigned airline, unsigne
     }
     else {
         auto& guest = guest_node->data;
-        for (int i = 0; i < level_size[airline]; ++i) {
+        for (unsigned i = 0; i < level_size[airline]; ++i) {
             if (!airlines[airline].is_ordered[level - 1][i]) {
                 cout << i;
                 guest.seat[level - 1][guest.num_of_tickets[level - 1]++] = i;
@@ -111,7 +111,7 @@ bool return_ticket(Airline* airlines, const std::string& guest_name, unsigned ai
         cout << guest.name << " didn't book any ticket of level " << level << '.' << endl;
         return false;
     }
-    for (auto i = 0; i < guest.num_of_tickets[level - 1]; ++i)
+    for (unsigned i = 0; i < guest.num_of_tickets[level - 1]; ++i)
         airlines[airline].is_ordered[level - 1][i] = false;
     airlines[airline].tickets_left[level - 1] += guest.num_of_tickets[level - 1];
     memset(guest.seat[level - 1], 0, sizeof(guest.seat[level - 1]));
@@ -182,7 +182,7 @@ void list_guests(Airline* airlines, unsigned airline) {
     auto p = airlines[airline].guests_ordered.head->next;
     while (p != airlines[airline].guests_ordered.tail) {
         cout << p->data.name << " booked ";
-        unsigned tmp[3][2] = {0}, s = 0;
+        unsigned tmp[3][2] = {{0}}, s = 0;
         for (int i = 0; i < 3; ++i) {
             if (p->data.num_of_tickets[i]) {
                 tmp[s][0] = i + 1; //level
@@ -239,7 +239,7 @@ void search_airline(Airline* airlines, unsigned num_of_airlines, const string& a
     if (!ans) cout << "Sorry, we failed to find such airlines." << endl;
     else {
         cout << ans_length << " results found." << endl;
-        for (int i = 0; i < ans_length; ++i) {
+        for (unsigned i = 0; i < ans_length; ++i) {
             cout << ans[i].id_airline << ", " << ans[i].id_plane << ", " 
                 << "from " << ans[i].from << " to " << ans[i].to << ", "
                 << to_string(ans[i].time) << ", " << ans[i].closest.to_string() << endl;
@@ -279,7 +279,7 @@ void book(Airline* airlines, unsigned num_of_airlines, const string& air,
             airlines[airline].to, len);
         if (len > 1) {
             cout << "But we have airlines toward the same destination that fits your acquirement:" << endl;
-            for(int i = 0; i < len; ++i)
+            for(unsigned i = 0; i < len; ++i)
                 if (ans[i].tickets_left[order_level - 1] >= order_size
                     && ans[i].id_airline != air)
                     cout << ans[i].id_airline << ", " << ans[i].id_plane << ", "

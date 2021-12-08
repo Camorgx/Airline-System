@@ -54,7 +54,7 @@ string to_string(Date& date) {
 }
 
 Date Date::operator+(unsigned duration) const {
-    int n_year = year, n_month = int(month), n_day = day + duration;
+    int n_year = int(year), n_month = int(month), n_day = day + duration;
     if (n_month == 4 || n_month == 6 || n_month == 9 || n_month == 11) {
         if (n_day > 30) { n_day -= 30; n_month += 1; }
     }
@@ -77,7 +77,8 @@ Date Date::operator+(unsigned duration) const {
         else if (n_day > 28) { n_day -= 28; n_month += 1; }
     }
     if (n_month > 12) { n_month -= 12; n_year += 1; }
-    return Date(n_year, n_month, n_day);
+    return {static_cast<unsigned int>(n_year), static_cast<unsigned int>(n_month),
+            static_cast<unsigned int>(n_day)};
 }
 
 Date get_closest_date(Weekday weekday) {

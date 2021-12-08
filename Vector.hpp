@@ -6,8 +6,8 @@
 
 class VectorError : public std::runtime_error {
 public:
-    VectorError(const char* info) : runtime_error(info) {}
-    VectorError(const std::string& information) : runtime_error(information) {}
+    explicit VectorError(const char* info) : runtime_error(info) {}
+    explicit VectorError(const std::string& information) : runtime_error(information) {}
     const char* what() const noexcept override { return runtime_error::what(); }
 };
 
@@ -56,7 +56,7 @@ public:
         return true;
     }
     DataType& operator[](const int id) const {
-        if (id >= 0 && id < array_size) return dat[id];
+        if (id >= 0 && unsigned(id) < array_size) return dat[id];
         else throw VectorError("Array out of bounds.");
     }
 

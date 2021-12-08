@@ -19,7 +19,7 @@ int main(int argc, const char* argv[]) {
     while (true) {
         string input; getline(cin, input);
         if (input.length() == 0) continue;
-        vector<string> input_split;
+        Vector<string> input_split;
         string_split(input_split, input);
         if (input_split[0] == "exit") break;
         //search Destination

@@ -1,6 +1,7 @@
 ﻿#include "PriorityList.hpp"
 
 PriorityList& PriorityList::operator=(const PriorityList& b) {
+    if (this == &b) return *this;
     head->next = tail; tail->prev = head;
     size = b.size;
     Node* p = b.head->next;

@@ -37,7 +37,7 @@ Airline* search_airline(Airline* airlines, unsigned num_of_airlines, const strin
     else return ans;
 }
 
-void string_split(vector<string>& ans, const string& source, const string& split) {
+void string_split(Vector<string>& ans, const string& source, const string& split) {
     auto pos2 = source.find(split);
     unsigned pos1 = 0;
     while(pos2 != string::npos) {
@@ -288,7 +288,7 @@ void book(Airline* airlines, unsigned num_of_airlines, const string& air,
             cout << "Do you want to wait in queue or book another airline?" << endl;
             string in; getline(cin, in);
             if (in.length() == 0) return;
-            vector<string> in_split;
+            Vector<string> in_split;
             string_split(in_split, in);
             if (in_split[0] == "wait") {
                 airlines[airline].guest_waiting.push(Guest(guest_name, order_level, order_size));
@@ -361,13 +361,13 @@ string get_help(const std::string& program_name, const string& help_command) {
 Supported commands: exit, help, search, list, book, return, leave-queue.
 Type "help [command] to get more information.
 usage: )";
-        string tmp, ttmp;
+        string tmp, t_tmp;
         for (auto i = program_name.rbegin(); i != program_name.rend(); ++i)
             if (*i != '\\' && *i != '/') tmp.push_back(*i);
             else break;
         for (auto i = tmp.rbegin(); i != tmp.rend(); ++i)
-            ttmp.push_back(*i);
-        ans.append(ttmp);
+            t_tmp.push_back(*i);
+        ans.append(t_tmp);
         ans.append(" [Data File]\n");
     }
     else if (help_command == "exit") {

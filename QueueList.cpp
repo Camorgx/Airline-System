@@ -1,5 +1,4 @@
 ﻿#include "QueueList.hpp"
-#include <cstring>
 using namespace std;
 
 Guest& QueueList::front() {

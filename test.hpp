@@ -4,7 +4,7 @@
 #include "QueueList.hpp"
 #include <iostream>
 
-void TestQueue() {
+void TestQueueList() {
     QueueList q;
     q.push(Guest("1")); std::cout << q.back().name << std::endl;
     q.push(Guest("2")); std::cout << q.back().name << std::endl;
@@ -88,8 +88,36 @@ void TestPriorityList() {
 
 #include "Vector.hpp"
 
-void VectorTest() {
-
+void TestVector() {
+    Vector<int> vec = {1, 2, 3, 4, 45, 6};
+    for (const auto& i : vec) std::cout << i << ' ';
+    std::cout << std::endl;
+    vec.push_back(19);
+    std::cout << vec.size() << std::endl;
+    for (const auto& i : vec) std::cout << i << ' ';
+    std::cout << std::endl;
+    for (const auto& i : vec) std::cout << i << ' ';
+    std::cout << std::endl;
+    for(unsigned i = 0; i < vec.size(); ++i)
+        std::cout << vec[i] << ' ';
+    std::cout << std::endl;
+    auto vec_copy_construct(vec);
+    vec.pop_back();
+    vec.pop_back();
+    auto vec_move_construct(std::move(vec));
+    Vector<int> vec_copy_equal, vec_move_equal;
+    vec_copy_equal = vec_copy_construct;
+    vec_move_equal = move(vec_copy_construct);
+    for (const auto& i : vec) std::cout << i << ' ';
+    std::cout << std::endl;
+    for (const auto& i : vec_move_construct) std::cout << i << ' ';
+    std::cout << std::endl;
+    for (const auto& i : vec_copy_equal) std::cout << i << ' ';
+    std::cout << std::endl;
+    for (const auto& i : vec_move_equal) std::cout << i << ' ';
+    std::cout << std::endl;
+    std::cout << (vec_copy_equal == vec_move_construct) << std::endl;
+    std::cout << (vec_move_equal == vec_copy_equal) << std::endl;
 }
 
 #endif /* test_h */

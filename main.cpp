@@ -77,7 +77,17 @@ int main(int argc, const char* argv[]) {
         else cout << "Please check your input." << endl;
     }
 #else
+    cout << "Begin QueueList test.\n";
+    TestQueueList();
+    cout << "QueueList test complete.\n";
+
+    cout << "Begin PriorityList test.\n";
     TestPriorityList();
+    cout << "PriorityList test complete.\n";
+    
+    cout << "Begin Vector test.\n";
+    TestVector();
+    cout << "Vector test complete.\n";
 #endif
     delete[] airlines;
     return 0;

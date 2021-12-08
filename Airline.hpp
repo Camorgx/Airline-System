@@ -64,7 +64,7 @@ public:
     //The closest day the plane will fly from today.
     Date closest;
     unsigned tickets_left[3] = {level_size[0], level_size[1], level_size[2]};
-    bool is_ordered[3][200] = {false};
+    bool is_ordered[3][200] = {{false}};
     PriorityList guests_ordered;
     QueueList guest_waiting;
     

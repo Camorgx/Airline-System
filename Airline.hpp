@@ -75,7 +75,7 @@ public:
         id_plane = std::move(plane); time = (Weekday)weekday;
         closest = get_closest_date(time);
     }
-    
+
     bool operator<(const Airline& b) const {
         return id_airline < b.id_airline;
     }

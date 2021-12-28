@@ -4,6 +4,8 @@
 #include <algorithm>
 using namespace std;
 
+int find_airline(Airline* airlines, unsigned num_of_airlines, const std::string& airline);
+
 bool init_system(Airline*& airlines, unsigned& num_of_airlines, const string& data_file) {
     ifstream fin; fin.open(data_file);
     if (!fin) {

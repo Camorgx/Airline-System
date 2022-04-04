@@ -11,5 +11,7 @@ else()
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra")
     endif()
 endif ()
-add_executable(Airline_System main.cpp Airline.cpp PriorityList.cpp QueueList.cpp utils.cpp "Vector.hpp"
-        "test.hpp" "Queue.cpp")
+
+include_directories(Airline_System include/)
+add_executable(Airline_System src/main.cpp src/Airline.cpp src/PriorityList.cpp 
+    src/QueueList.cpp src/utils.cpp src/Queue.cpp)

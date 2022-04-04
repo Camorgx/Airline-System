@@ -1,5 +1,6 @@
 ﻿#include "utils.hpp"
 #include <fstream>
+#include <cstring>
 #include <iostream>
 #include <algorithm>
 using namespace std;
